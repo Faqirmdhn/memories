@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Memories Together | Kenangan Bersama Teman</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(145deg, #fff9f0 0%, #ffe6d5 100%);
+      color: #3e2a2a;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5e2ce;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c29a6b;
+      border-radius: 10px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px 30px;
+    }
+
+    /* Header / Hero Section */
+    .hero {
+      text-align: center;
+      padding: 50px 20px 40px;
+      background: rgba(255, 245, 235, 0.7);
+      border-radius: 60px 60px 40px 40px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(2px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #b45f2b, #e6a157);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.03);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: #7b4a2e;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 500;
+    }
+    .hero i {
+      color: #e6a157;
+      margin: 0 5px;
+    }
+    .tagline {
+      margin-top: 20px;
+      font-size: 1rem;
+      background: #fff0e2;
+      display: inline-block;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      color: #aa6f3c;
+    }
+
+    /* Upload Area */
+    .upload-section {
+      background: white;
+      border-radius: 36px;
+      padding: 24px 28px;
+      margin-bottom: 45px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      border: 1px solid #ffdfc4;
+    }
+    .upload-area {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .file-label {
+      background: #ffecd6;
+      border-radius: 60px;
+      padding: 12px 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: #b45f2b;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px dashed #dba870;
+      font-size: 1rem;
+    }
+    .file-label:hover {
+      background: #ffe1c4;
+      transform: scale(0.98);
+    }
+    .file-label i {
+      font-size: 1.3rem;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    .preview-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 15px;
+      flex: 2;
+    }
+    #previewImg {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      border: 2px solid #ffc48a;
+    }
+    .caption-input {
+      flex: 2;
+      min-width: 180px;
+    }
+    .caption-input input {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 60px;
+      border: 1px solid #f0cfb3;
+      background: #fffaf5;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 500;
+      outline: none;
+      transition: 0.2s;
+    }
+    .caption-input input:focus {
+      border-color: #e6a157;
+      box-shadow: 0 0 0 3px rgba(230,161,87,0.2);
+    }
+    .add-btn {
+      background: linear-gradient(95deg, #c9864b, #e2a36b);
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 12px rgba(185, 102, 28, 0.2);
+    }
+    .add-btn:hover {
+      background: linear-gradient(95deg, #b66f38, #d48f50);
+      transform: translateY(-2px);
+    }
+
+    /* Filter / Sort */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+      gap: 15px;
+    }
+    .filter-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: #fff3e8;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-family: 'Quicksand', sans-serif;
+      color: #ad6b3b;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+    .filter-btn.active {
+      background: #cb7f43;
+      color: white;
+      box-shadow: 0 4px 10px #e2a46b70;
+    }
+    .sort-btn {
+      background: #f0e0d0;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Quicksand', sans-serif;
+      color: #7b4a2e;
+    }
+    /* Gallery Grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+    .memory-card {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.25s ease, box-shadow 0.3s;
+      cursor: pointer;
+      backdrop-filter: blur(2px);
+      border: 1px solid #ffeedd;
+    }
+    .memory-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 38px -15px rgba(0, 0, 0, 0.2);
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      transition: 0.3s;
+      background: #f3e2d2;
+    }
+    .card-info {
+      padding: 18px 18px 20px;
+    }
+    .memory-caption {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #4b2c1a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .memory-date {
+      font-size: 0.75rem;
+      color: #c2946e;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .delete-memory {
+      background: #fff1e6;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #b45b2c;
+      cursor: pointer;
+      transition: 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .delete-memory:hover {
+      background: #ffdbbc;
+      color: #a13e0a;
+    }
+    /* Modal Lightbox */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .modal-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      background: #fffbf5;
+      border-radius: 48px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      cursor: default;
+      box-shadow: 0 30px 40px rgba(0,0,0,0.4);
+      animation: fadeUp 0.2s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: scale(0.96);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .modal-img {
+      max-width: 100%;
+      max-height: 65vh;
+      border-radius: 28px;
+      object-fit: contain;
+    }
+    .modal-caption {
+      margin-top: 16px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #5a311a;
+    }
+    .modal-date {
+      color: #b48a63;
+      margin-top: 6px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 12px;
+      right: 22px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #a55f32;
+      cursor: pointer;
+      background: rgba(255,245,235,0.7);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.1s;
+    }
+    .close-modal:hover {
+      background: #cb7f43;
+      color: white;
+    }
+    /* Empty State */
+    .empty-message {
+      text-align: center;
+      grid-column: 1 / -1;
+      background: #ffefdf;
+      padding: 50px;
+      border-radius: 60px;
+      color: #b97f4b;
+      font-size: 1.2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #b4875c;
+      font-weight: 500;
+      border-top: 1px solid #ffe0cb;
+      margin-top: 20px;
+    }
+    @media (max-width: 680px) {
+      .container {
+        padding: 15px;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .upload-area {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .preview-row {
+        justify-content: center;
+      }
+      .add-btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Hero kenangan -->
+  <div class="hero">
+    <h1><i class="fas fa-camera-retro"></i> kenangan kita <i class="fas fa-heart" style="color:#e6a157;"></i></h1>
+    <p>Setiap foto adalah cerita — simpan momen terindah bersama sahabat</p>
+    <div class="tagline"><i class="fas fa-images"></i> Galeri kenangan tak terlupakan</div>
+  </div>
+
+  <!-- Upload area -->
+  <div class="upload-section">
+    <div class="upload-area">
+      <div>
+        <label class="file-label" for="photoInput">
+          <i class="fas fa-cloud-upload-alt"></i> Pilih Foto
+        </label>
+        <input type="file" id="photoInput" accept="image/jpeg, image/png, image/jpg, image/gif">
+      </div>
+      <div class="preview-row">
+        <img id="previewImg" alt="preview">
+        <div class="caption-input">
+          <input type="text" id="captionInput" placeholder="Tulis kenangan... misal: 'Liburan ke pantai bareng ✨'">
+        </div>
+      </div>
+      <button class="add-btn" id="addMemoryBtn"><i class="fas fa-plus-circle"></i> Simpan Memori</button>
+    </div>
+  </div>
+
+  <!-- Filter & Sort -->
+  <div class="filter-bar">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Semua Kenangan</button>
+      <button class="filter-btn" data-filter="recent">Terbaru</button>
+      <button class="filter-btn" data-filter="oldest">Terlama</button>
+    </div>
+    <button class="sort-btn" id="shuffleBtn"><i class="fas fa-random"></i> Acak Kenangan</button>
+  </div>
+
+  <!-- Gallery grid -->
+  <div class="gallery" id="galleryContainer">
+    <!-- Memory cards akan di sini via JS -->
+    <div class="empty-message">✨ Belum ada kenangan. Upload foto pertama kalian! ✨</div>
+  </div>
+  <footer>
+    <i class="fas fa-mug-hot"></i> untuk sahabat terbaik — setiap memori berharga
+  </footer>
+</div>
+
+<!-- Modal Lightbox -->
+<div id="lightboxModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <img class="modal-img" id="modalImage" alt="memory besar">
+    <div class="modal-caption" id="modalCaption"></div>
+    <div class="modal-date" id="modalDate"></div>
+  </div>
+</div>
+
+<script>
+  // ---------- DATA MODEL ----------
+  let memories = [];
+
+  // Load from localStorage
+  function loadFromStorage() {
+    const stored = localStorage.getItem('friends_memories');
+    if(stored) {
+      try {
+        memories = JSON.parse(stored);
+        // pastikan setiap memory punya properti dateISO untuk sorting
+        memories = memories.map(m => ({ ...m, dateISO: m.dateISO || new Date(m.dateAdded).toISOString() }));
+      } catch(e) { console.warn(e); }
+    } else {
+      // contoh data awal supaya tidak kosong (3 sample memories)
+      memories = [
+        {
+          id: "mem1",
+          imageData: "https://picsum.photos/id/20/400/400",  // placeholder nature
+          caption: "☕️ Ngopi sore bareng Dika & Rani",
+          dateAdded: new Date("2024-12-10").getTime(),
+          dateISO: "2024-12-10T00:00:00.000Z"
+        },
+        {
+          id: "mem2",
+          imageData: "https://picsum.photos/id/169/400/400",
+          caption: "🏖️ Sunset di pantai, besties selamanya!",
+          dateAdded: new Date("2025-01-20").getTime(),
+          dateISO: "2025-01-20T00:00:00.000Z"
+        },
+        {
+          id: "mem3",
+          imageData: "https://picsum.photos/id/155/400/400",
+          caption: "🎂 Ultah ke-22, kue dari teman-teman tersayang",
+          dateAdded: new Date("2025-02-14").getTime(),
+          dateISO: "2025-02-14T00:00:00.000Z"
+        }
+      ];
+      saveToStorage();
+    }
+  }
+
+  function saveToStorage() {
+    localStorage.setItem('friends_memories', JSON.stringify(memories));
+  }
+
+  // Helper: format tanggal lokal
+  function formatDate(timestamp) {
+    const d = new Date(timestamp);
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  // render gallery berdasarkan filter & sort state
+  let currentFilter = "all"; // 'all', 'recent', 'oldest'
+  let currentOrder = "none"; // namun untuk filter tombol juga mengubah urutan. Kita akan sinkron.
+
+  function getSortedMemories() {
+    let filtered = [...memories];
+    // filter "recent" = urutan descending (terbaru di atas), "oldest" ascending
+    if(currentFilter === "recent") {
+      filtered.sort((a,b) => b.dateAdded - a.dateAdded);
+    } else if(currentFilter === "oldest") {
+      filtered.sort((a,b) => a.dateAdded - b.dateAdded);
+    } else {
+      // all: default berdasarkan date descending (biar kebih modern)
+      filtered.sort((a,b) => b.dateAdded - a.dateAdded);
+    }
+    return filtered;
+  }
+
+  // shuffle acak
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function renderGallery() {
+    const container = document.getElementById('galleryContainer');
+    let memoriesToRender = getSortedMemories();
+
+    if(currentFilter === "shuffled") {
+      // mode acak tidak disimpan sebagai filter permanen, tapi hanya untuk tampilan sementara
+      // kita akan gunakan status shuffledTemporary
+      if(window.shuffledActive) {
+        memoriesToRender = shuffleArray([...memoriesToRender]);
+      }
+    }
+
+    if(memoriesToRender.length === 0) {
+      container.innerHTML = `<div class="empty-message">📸 Belum ada memori. Yuk upload foto kenangan bersama teman! 🫶</div>`;
+      return;
+    }
+
+    let html = '';
+    memoriesToRender.forEach(mem => {
+      html += `
+        <div class="memory-card" data-id="${mem.id}">
+          <img class="card-img" src="${mem.imageData}" alt="memory" loading="lazy">
+          <div class="card-info">
+            <div class="memory-caption">
+              <i class="fas fa-star-of-life" style="font-size:0.7rem; color:#e6a157;"></i> ${escapeHtml(mem.caption)}
+            </div>
+            <div class="memory-date">
+              <i class="far fa-calendar-alt"></i> ${formatDate(mem.dateAdded)}
+            </div>
+            <button class="delete-memory" data-id="${mem.id}"><i class="fas fa-trash-alt"></i> Hapus kenangan</button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+
+    // Event listeners untuk hapus & buka modal
+    document.querySelectorAll('.delete-memory').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        deleteMemoryById(id);
+      });
+    });
+    document.querySelectorAll('.memory-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // cegah jika klik tombol hapus
+        if(e.target.closest('.delete-memory')) return;
+        const id = card.getAttribute('data-id');
+        openModalById(id);
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      if(m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  function deleteMemoryById(id) {
+    memories = memories.filter(m => m.id !== id);
+    saveToStorage();
+    // reset shuffle mode jika aktif
+    if(window.shuffledActive) {
+      window.shuffledActive = false;
+      currentFilter = "all";
+      updateFilterButtons("all");
+    }
+    renderGallery();
+  }
+
+  function openModalById(id) {
+    const memory = memories.find(m => m.id === id);
+    if(!memory) return;
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalDate = document.getElementById('modalDate');
+    modalImg.src = memory.imageData;
+    modalCaption.innerText = memory.caption;
+    modalDate.innerText = formatDate(memory.dateAdded);
+    modal.style.display = 'flex';
+  }
+
+  // Tambah memori baru
+  function addMemory(imageDataUrl, captionText) {
+    if(!imageDataUrl) {
+      alert("Pilih foto terlebih dahulu ya!");
+      return false;
+    }
+    const newId = Date.now().toString() + Math.random().toString(36);
+    const now = new Date();
+    const memory = {
+      id: newId,
+      imageData: imageDataUrl,
+      caption: captionText.trim() === "" ? "Momen tak terlupakan 🥰" : captionText.trim(),
+      dateAdded: now.getTime(),
+      dateISO: now.toISOString()
+    };
+    memories.unshift(memory); // tambah di awal
+    saveToStorage();
+    // setelah upload, reset filter ke 'all' dan matikan shuffle
+    if(window.shuffledActive) window.shuffledActive = false;
+    currentFilter = "all";
+    updateFilterButtons("all");
+    renderGallery();
+    return true;
+  }
+
+  // event upload dan preview
+  const photoInput = document.getElementById('photoInput');
+  const previewImg = document.getElementById('previewImg');
+  const captionInput = document.getElementById('captionInput');
+  const addBtn = document.getElementById('addMemoryBtn');
+  let currentSelectedFile = null;
+  let currentImageDataUrl = null;
+
+  photoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if(file && file.type.startsWith('image/')) {
+      currentSelectedFile = file;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        currentImageDataUrl = ev.target.result;
+        previewImg.src = currentImageDataUrl;
+        previewImg.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Mohon pilih file gambar (jpg, png, gif)");
+      resetPreview();
+    }
+  });
+
+  function resetPreview() {
+    previewImg.style.display = 'none';
+    previewImg.src = '';
+    currentImageDataUrl = null;
+    currentSelectedFile = null;
+    photoInput.value = '';
+  }
+
+  addBtn.addEventListener('click', () => {
+    if(!currentImageDataUrl) {
+      alert("Silakan pilih foto kenangan terlebih dahulu!");
+      return;
+    }
+    const caption = captionInput.value;
+    addMemory(currentImageDataUrl, caption);
+    // reset form setelah sukses
+    resetPreview();
+    captionInput.value = '';
+    // optional: scroll ke galeri
+    document.querySelector('.gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // filter buttons event
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  function updateFilterButtons(activeFilter) {
+    filterBtns.forEach(btn => {
+      const filterVal = btn.getAttribute('data-filter');
+      if(filterVal === activeFilter) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    currentFilter = activeFilter;
+    if(window.shuffledActive) window.shuffledActive = false; // matikan shuffle mode saat ganti filter
+    renderGallery();
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filterValue = btn.getAttribute('data-filter');
+      updateFilterButtons(filterValue);
+    });
+  });
+
+  // shuffle tombol
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  shuffleBtn.addEventListener('click', () => {
+    // toggle shuffle mode
+    if(window.shuffledActive) {
+      window.shuffledActive = false;
+      // kembali ke filter 'all' atau terakhir? biar ke all
+      currentFilter = "all";
+      updateFilterButtons("all");
+    } else {
+      window.shuffledActive = true;
+      // hapus active class pada filter
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      currentFilter = "shuffled";
+      renderGallery();
+    }
+  });
+
+  // modal close
+  const modal = document.getElementById('lightboxModal');
+  const closeModalBtn = document.querySelector('.close-modal');
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) modal.style.display = 'none';
+  });
+  closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && modal.style.display === 'flex') modal.style.display = 'none';
+  });
+
+  // Inisialisasi
+  loadFromStorage();
+  window.shuffledActive = false;
+  renderGallery();
+</script>
+</body>
+</html>
